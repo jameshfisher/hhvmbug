@@ -26,6 +26,10 @@ apt-get update
 
 apt-get install -y php5
 
+apt-get install -y php5-fpm
+
+cp /vagrant/www.conf /etc/php5/fpm/pool.d/www.conf
+
 
 ################################## HHVM #######################################
 
@@ -41,7 +45,6 @@ apt-get install -y hhvm
 apt-get install -y apache2
 a2enmod proxy
 a2enmod proxy_fcgi
-a2enmod rewrite
 
 rm -f /etc/apache2/sites-enabled/000-default.conf
 
@@ -50,6 +53,9 @@ cp /vagrant/hhvm.conf /etc/apache2/sites-enabled/
 
 
 ################################ Services #####################################
+
+update-rc.d php5-fpm defaults
+service php5-fpm restart
 
 update-rc.d hhvm defaults
 service hhvm restart
